@@ -281,3 +281,11 @@ C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\conf\plugin\SupplementPlugin\Pos
 C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\conf\plugin\SupplementPlugin\PosProcessor\SimplePOSResult09.json
 C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\conf\plugin\SupplementPlugin\PosProcessor\SimplePOSResult22.json
 C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\NHanNanum.dll
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\auctionspamtext.txt
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\gmarketspamtext.txt
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\positiveWord.txt
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\ngativeWord.txt
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\Feedback.ContentsFeeder.dll
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\System.Net.Http.Formatting.dll
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\Feedback.ContentsFeeder.pdb
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\System.Net.Http.Formatting.xml
