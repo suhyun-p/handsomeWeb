@@ -1,0 +1,15 @@
+C:\Data\git_storage\NHanNanum\NHanNanum\obj\Debug\NHanNanum.csprojResolveAssemblyReference.cache
+C:\Data\git_storage\NHanNanum\NHanNanum\obj\Debug\NHanNanum.dll
+C:\Data\git_storage\NHanNanum\NHanNanum\obj\Debug\NHanNanum.pdb
+C:\Data\git_storage\NHanNanum\NHanNanum\NHanNanum.dll
+C:\Data\git_storage\NHanNanum\NHanNanum\NHanNanum.pdb
+C:\Data\git_storage\TSP.CoreDBSync\HackatonProjects\DataMining\NHanNanum\obj\Debug\NHanNanum.csprojResolveAssemblyReference.cache
+C:\Data\git_storage\TSP.CoreDBSync\HackatonProjects\DataMining\NHanNanum\obj\Debug\NHanNanum.dll
+C:\Data\git_storage\TSP.CoreDBSync\HackatonProjects\DataMining\NHanNanum\obj\Debug\NHanNanum.pdb
+C:\Data\git_storage\TSP.CoreDBSync\HackatonProjects\DataMining\NHanNanum\NHanNanum.dll
+C:\Data\git_storage\TSP.CoreDBSync\HackatonProjects\DataMining\NHanNanum\NHanNanum.pdb
+C:\Data\git_storage\handsomeWeb\NHanNanum\obj\Debug\NHanNanum.csprojResolveAssemblyReference.cache
+C:\Data\git_storage\handsomeWeb\NHanNanum\obj\Debug\NHanNanum.dll
+C:\Data\git_storage\handsomeWeb\NHanNanum\obj\Debug\NHanNanum.pdb
+C:\Data\git_storage\handsomeWeb\NHanNanum\NHanNanum.dll
+C:\Data\git_storage\handsomeWeb\NHanNanum\NHanNanum.pdb

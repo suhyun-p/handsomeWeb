@@ -38,3 +38,5 @@ C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\Newtonsoft.Jso
 C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\System.Net.Http.Formatting.xml
 C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\obj\Debug\Feedback.ContentsFeeder.dll
 C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\obj\Debug\Feedback.ContentsFeeder.pdb
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\NHanNanum.pdb
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\NHanNanum.xml

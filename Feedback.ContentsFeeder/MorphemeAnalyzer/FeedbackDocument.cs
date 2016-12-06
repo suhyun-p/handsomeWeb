@@ -41,10 +41,11 @@ namespace Feedback.ContentsFeeder
 					AnalysisedSenCollection = MorphemeAnalyzer.DoMorphemeAnalysis(UnHtmlTempDocument);
 					
 				}
-				catch
+				catch(Exception ex)
 				{
-					this.FbQuality = FeedbackQuality.NotSet;
-					return;
+					throw ex;
+					//this.FbQuality = FeedbackQuality.NotSet;
+					//return;
 				}
 			}
 

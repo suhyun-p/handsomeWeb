@@ -289,3 +289,9 @@ C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\Feedback.ContentsFeeder.dll
 C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\System.Net.Http.Formatting.dll
 C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\Feedback.ContentsFeeder.pdb
 C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\System.Net.Http.Formatting.xml
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\data\auctionspamtext.txt
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\data\gmarketspamtext.txt
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\data\ngativeWord.txt
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\data\positiveWord.txt
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\NHanNanum.pdb
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\NHanNanum.xml

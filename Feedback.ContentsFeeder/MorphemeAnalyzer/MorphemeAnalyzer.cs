@@ -20,7 +20,7 @@ namespace Feedback.ContentsFeeder
 			//Workflow workflow = WorkflowFactory.getPredefinedWorkflow(WorkflowFactory.WORKFLOW_MORPH_ANALYZER); // 데이타 안나옴
 			//Workflow workflow = WorkflowFactory.getPredefinedWorkflow(WorkflowFactory.WORKFLOW_HMM_POS_TAGGER);  // 품사태그가 너무 구체적
 			//Workflow workflow = WorkflowFactory.getPredefinedWorkflow(WorkflowFactory.WORKFLOW_POS_SIMPLE_22);
-			Workflow workflow = WorkflowFactory.getPredefinedWorkflow(WorkflowFactory.WORKFLOW_POS_SIMPLE_09);  
+			WorkflowForWeb workflow = WorkflowFactoryForWeb.getPredefinedWorkflow(WorkflowFactoryForWeb.WORKFLOW_POS_SIMPLE_09);  
 			/*
 				N : 명사 (체언)
 				P : 형용사 / 동사 (용언)
