@@ -54,18 +54,16 @@
         ];
 
         $.ajax({
-            url: "Feedback/GetRealFeedback",
+            url: "../Feedback/GetRealFeedback",
             data: param,
             type: 'POST',
             dataType: "json",
             async: false,
             cache: false,
-            success: function (results) {
-                var a = 1;
-                alert(results);
+            success: function (data) {
+                alert(data);
             },
-            error: function (results) {
-                var b = 1;
+            error: function (result) {
                 alert("Fail");
             }
         });
