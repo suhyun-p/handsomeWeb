@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureWebservice\AzureMLWsHelper.cs" />
+    <Compile Include="BambooWebservice\BambooWsHelper.cs" />
     <Compile Include="BizDac\FeedbackCsvT.cs" />
     <Compile Include="BizDac\MongodbFeedbackModel.cs" />
     <Compile Include="BizDac\OriginFeedbackContetnsT.cs" />
