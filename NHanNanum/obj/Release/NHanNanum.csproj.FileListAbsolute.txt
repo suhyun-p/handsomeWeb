@@ -1,0 +1,5 @@
+C:\Data\git_storage\handsomeWeb\NHanNanum\obj\Release\NHanNanum.csprojResolveAssemblyReference.cache
+C:\Data\git_storage\handsomeWeb\NHanNanum\obj\Release\NHanNanum.dll
+C:\Data\git_storage\handsomeWeb\NHanNanum\obj\Release\NHanNanum.pdb
+C:\Data\git_storage\handsomeWeb\NHanNanum\NHanNanum.dll
+C:\Data\git_storage\handsomeWeb\NHanNanum\NHanNanum.pdb
