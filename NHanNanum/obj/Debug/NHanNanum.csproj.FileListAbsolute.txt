@@ -18,3 +18,8 @@ C:\ESM_Merge\handsomeWeb\NHanNanum\obj\Debug\NHanNanum.dll
 C:\ESM_Merge\handsomeWeb\NHanNanum\obj\Debug\NHanNanum.pdb
 C:\ESM_Merge\handsomeWeb\NHanNanum\NHanNanum.dll
 C:\ESM_Merge\handsomeWeb\NHanNanum\NHanNanum.pdb
+C:\ESM_Merge\handsomeWeb_\NHanNanum\obj\Debug\NHanNanum.csprojResolveAssemblyReference.cache
+C:\ESM_Merge\handsomeWeb_\NHanNanum\obj\Debug\NHanNanum.dll
+C:\ESM_Merge\handsomeWeb_\NHanNanum\obj\Debug\NHanNanum.pdb
+C:\ESM_Merge\handsomeWeb_\NHanNanum\NHanNanum.dll
+C:\ESM_Merge\handsomeWeb_\NHanNanum\NHanNanum.pdb

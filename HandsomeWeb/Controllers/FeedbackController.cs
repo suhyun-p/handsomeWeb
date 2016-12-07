@@ -46,7 +46,18 @@ namespace HandsomeWeb.Controllers
 			return View();
 		}
 
-		[ValidateInput(false)]
+        public ActionResult RealFeedbackAnalyze()
+        {
+            return View();
+        }
+
+        public JsonResult GetRealFeedback(string orderno)
+        {
+            string returnString = "test";
+            return Json(returnString);
+        }
+
+        [ValidateInput(false)]
 		public JsonResult FeedbackParsing(string Name1)
 		{
 			FeedbackDocument test = new FeedbackDocument(FbSite.Auction, String.Empty, 0,  String.Empty, String.Empty, Name1, FbInputChannel.PC, DateTime.Now);

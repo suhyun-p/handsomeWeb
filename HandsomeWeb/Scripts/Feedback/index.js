@@ -45,4 +45,29 @@
             }
         });
     });
+
+    $('#searchFeedbackReal').on('click', function () {
+        var feedbackNo = $('#inputFeedbackNo').val();
+
+        var param = [
+            { name: 'orderno', value: feedbackNo }
+        ];
+
+        $.ajax({
+            url: "Feedback/GetRealFeedback",
+            data: param,
+            type: 'POST',
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function (results) {
+                var a = 1;
+                alert(results);
+            },
+            error: function (results) {
+                var b = 1;
+                alert("Fail");
+            }
+        });
+    });
 });

@@ -323,6 +323,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\Feedback\RealFeedbackAnalyze.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
