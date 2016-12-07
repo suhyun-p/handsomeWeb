@@ -19,13 +19,46 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script src="~/Scripts/Feedback/index.js"></script>
+    <script src="~/Scripts/FeedbackSearch/index.js"></script>
 
 </head>
 <body>
     <div class="jumbotron">
-        <h1>Hello, Feedback!</h1>
-        <p>We are handsome guys!! </p>
+		<center><h1>상품평을 보면 전체적으로 그런 기운이 온다</h1></center>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav nav-tabs" id="myTabs">
+						<li class="active"><a href="#home" data-toggle="tab">Home</a>
+						</li>
+						<li><a href="#mps" data-toggle="tab">옥션 상품평</a>
+						</li>
+						<li><a href="#ytb" data-toggle="tab">지마켓 상품평</a>
+						</li>
+						<li><a href="#rn" data-toggle="tab">새로운제안</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+
+						<div class="tab-pane active" id="home">
+							<h2>9조 완전미남이조 (박수현, 전효택)</h2>
+							<img src="~/Images/photo264280621058206191.jpg" height="312px" width="416px"/>
+							<img src="~/Images/photo264280621058206192.jpg" height="312px" width="416px"/>
+							<h2>공정하고 편파적인 점수 감사합니다.</h2>
+							<br />
+						</div>
+
+						<div class="tab-pane" id="mps" data-src="http://member.auction.co.kr/Feedback/VIPFeedbackSecondList.aspx?sellerid=n760527&itemno=A585443471">
+							<iframe src="" width="1024" height="700" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
+						</div>
+
+						<div class="tab-pane" id="ytb" data-src="http://mitem.gmarket.co.kr/Review/PhotoReview?page_no=1&goodscode=214762051">
+							<iframe src="" width="700" height="1024" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
         <textarea id="targetFeedback" class="form-control" rows="3"></textarea>
         <p><a id="FeedbackGo" class="btn btn-primary btn-lg" href="#" role="button">I got you!!!</a></p>
         <p><a id="MongoTest" class="btn btn-primary btn-lg" href="#" role="button">MongoTest</a></p>
