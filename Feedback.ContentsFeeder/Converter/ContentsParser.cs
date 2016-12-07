@@ -74,7 +74,7 @@ namespace Feedback.ContentsFeeder.Converter
 				}
 			}
 
-			content = Regex.Replace(content, @"(<br>|<br />|<br/>|</ br>|</br>|\r\n)", "\n", RegexOptions.IgnoreCase);
+			content = Regex.Replace(content, @"(<br>|<br />|<br/>|</ br>|</br>|\r\n)", " ", RegexOptions.IgnoreCase);
 			content = content.Replace("&nbsp;", " ");
 			content = content.Replace("\"", "'");
 			content = this.vbLimitText(content);
