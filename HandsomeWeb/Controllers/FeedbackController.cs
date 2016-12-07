@@ -100,10 +100,13 @@ namespace HandsomeWeb.Controllers
                 FbData = DateTime.Now
             };
 
-            InsertFeedback(reqeust);
+            // InsertFeedback(reqeust);
 
-            // List<FeedbackModel> Feedbacks = new List<FeedbackModel>();
-            // Feedbacks = GetAllFeedbacks();
+            List<FeedbackModel> Feedbacks = new List<FeedbackModel>();
+            Feedbacks = GetAllFeedbacks();
+
+            return Json(Feedbacks);
+            // var test = Convert.ToString(Feedbacks.Count);
 
             #endregion
 
@@ -127,7 +130,7 @@ namespace HandsomeWeb.Controllers
             */
             #endregion
 
-            return Json("MongoDBTest");
+            // return Json(test);
         }
 
         #region Task

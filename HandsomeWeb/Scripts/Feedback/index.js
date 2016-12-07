@@ -36,7 +36,9 @@
             async: false,
             cache: false,
             success: function (data) {
-                alert(data);
+                $.each(data, function (key, value) {
+                    $('#myTable > tbody:last').append('<tr><td>' + key + '</td><td>' + value.Title + '</td><td>' + value.Content + '</td></tr>')
+                });
             },
             error: function (result) {
                 alert("Fail");
