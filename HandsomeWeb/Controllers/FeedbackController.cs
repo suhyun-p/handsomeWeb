@@ -19,7 +19,7 @@ namespace HandsomeWeb.Controllers
 		[ValidateInput(false)]
 		public JsonResult FeedbackParsing(string Name1)
 		{
-			FeedbackDocument test = new FeedbackDocument(FbSite.Gmarket, String.Empty, Name1, FbInputChannel.PC);
+			FeedbackDocument test = new FeedbackDocument(FbSite.Gmarket, String.Empty, Name1, FbInputChannel.PC, DateTime.Now);
 
 			string sensitive = "긍정도 부정도 아닌";
 

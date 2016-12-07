@@ -111,31 +111,6 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			{
 				EndDate = System.DateTime.Now;
 
-				string path = fileName;
-				string writeStr = String.Empty;
-				writeStr = ToCsv(",", FeedbackCsvList);
-
-				// This text is added only once to the file.
-				if (!File.Exists(path))
-				{
-					// Create a file to write to.
-					using (StreamWriter sw = File.CreateText(path))
-					{
-						sw.Write(writeStr);
-
-					}
-				}
-				else
-				{
-
-					// This text is always added, making the file longer over time
-					// if it is not deleted.
-					using (StreamWriter sw = File.AppendText(path))
-					{
-						sw.Write(writeStr);
-					}
-				}
-
 				MakeDitionaryWordCount();
 			});
 		}
@@ -328,22 +303,6 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 				int value = dicWord[key];
 
 				keywordlist.Add(new KeywordCount(key, value));
-			}
-
-
-			string path = fileName + "_Dic.csv";
-			string writeStr = String.Empty;
-			writeStr = ToCsv(",", keywordlist.Where<KeywordCount>(p => p.Count > 1));
-
-			if (File.Exists(path))
-			{
-				File.Delete(path);
-			}
-
-			// Create a file to write to.
-			using (StreamWriter sw = File.CreateText(path))
-			{
-				sw.Write(writeStr);
 			}
 		}
 
