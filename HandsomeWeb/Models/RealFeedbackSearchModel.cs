@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Feedback.ContentsFeeder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,14 @@ namespace HandsomeWeb.Models
         public string Title { get; set; }
         public string Contents { get; set; }
         public string ImageUrl { get; set; }
+
+        public FeedbackQuality FbQuality { get; set; }
+        public string Sensitive { get; set; }
+        public double SensitiveScore { get; set; }
+        public string AnalysisedText { get; set; }
+        public double PositiveScore { get; set; }
+        public double NgativeScore { get; set; }
+
     }
 
     public partial class APIResponseT
