@@ -44,12 +44,26 @@
                     $(".thumbnail > img").attr("src", data.ImageUrl);
 
                     $("#AnalyzeFeedbackResult").html("");
-                    $("#AnalyzeFeedbackResult").append("<h1>" + data.Sensitive + " 상품평입니다.</h1>")
-                    $("#AnalyzeFeedbackResult").append("<h1>감성점수는 " + data.SensitiveScore + " 점!</h1>")
-                    $("#AnalyzeFeedbackResult").append("<h1>Quality는 " + data.FbQuality + "</h1>")
+                    $("#AnalyzeFeedbackResult").append("" + data.FbMsg + "</h1>")
+                    if(data.PositiveScore > 0) $("#AnalyzeFeedbackResult").append("<h2>긍정적 강도는 " + data.PositiveScore + " 점</h2>")
+                    if (data.NgativeScore > 0) $("#AnalyzeFeedbackResult").append("<h2>부정적 강도는 " + data.NgativeScore + " 점으로</h2>")
+                    if (data.PositiveScore == 0 && data.NgativeScore == 0) {
+                    	//$("#AnalyzeFeedbackResult").append("<h2>최종 감성지표 " + data.SensitiveScore + " 점입니다.</h2>")
+                    }
+                    else {
+                    	$("#AnalyzeFeedbackResult").append("<h2>최종 감성지표 " + data.SensitiveScore + " 점입니다.</h2>")
+                    }
+                    
+                    $("#AnalyzeFeedbackResult").append("<h1>" + data.Sensitive + "</h1>")
                 },
                 error: function (result) {
-                    alert("GetRealFeedback Fail");
+                	var feedbackNo = $("#inputFeedbackNo").val();
+
+                	feedbackNo = parseInt(feedbackNo) + 1;
+
+                	$("#inputFeedbackNo").val(feedbackNo);
+
+                	feedbackEvent.searchFeedbackReal();
                 }
             });
         };
@@ -65,13 +79,36 @@
         };
 
         feedbackEvent.searchFeedbackRealPrev = function () {
-            var feedbackNo = $("#inputFeedbackNo").val();
+        	var feedbackNo = $("#inputFeedbackNo").val();
 
-            feedbackNo = parseInt(feedbackNo) - 1;
+        	feedbackNo = parseInt(feedbackNo) - 1;
 
-            $("#inputFeedbackNo").val(feedbackNo);
+        	$("#inputFeedbackNo").val(feedbackNo);
 
-            feedbackEvent.searchFeedbackReal();
+        	feedbackEvent.searchFeedbackReal();
+        };
+
+        feedbackEvent.feedbackAnalysis = function () {
+        	var feedback = $('#targetFeedback').html();
+
+        	var param = [
+					{ name: 'Name1', value: feedback }
+        	];
+
+        	$.ajax({
+        		url: "FeedbackParsing",
+        		data: param,
+        		type: 'POST',
+        		dataType: "json",
+        		async: false,
+        		cache: false,
+        		success: function (data) {
+        			alert(data);
+        		},
+        		error: function (result) {
+        			alert("Fail");
+        		}
+        	});
         };
 
     </script>
@@ -79,17 +116,15 @@
 </head>
 <body>
     <div class="jumbotron">
-        <h1>Hello, Feedback!</h1>
-        <p>We are handsome guys!! </p>
         <form class="form-inline">
             <div class="form-group">
                 <label for="InputFeedbackNo">상품평 번호</label>
-                <input type="text" class="form-control" id="inputFeedbackNo" placeholder="FeedbackNo">
+                <input type="text" class="form-control" id="inputFeedbackNo" placeholder="FeedbackNo" value="41170545" />
             </div>
             <button id="searchFeedbackReal" class="btn btn-default" href="javascript:;" onclick="feedbackEvent.searchFeedbackReal(); return false;" >Search Real Feedback</button>
+			<button id="searchFeedbackReal" class="btn btn-default" href="javascript:;" onclick="feedbackEvent.searchFeedbackRealNext(); return false;">Next</button>
         </form>
-        <button id="searchFeedbackReal" class="btn btn-default" href="javascript:;" onclick="feedbackEvent.searchFeedbackRealPrev(); return false;">Prev</button>
-        <button id="searchFeedbackReal" class="btn btn-default" href="javascript:;" onclick="feedbackEvent.searchFeedbackRealNext(); return false;">Next</button>
+        
 
         <div id="realFeedback" class="row">
             <div class="col-sm-6 col-md-4">
@@ -97,8 +132,8 @@
                     <img src="http://img.iacstatic.co.kr/feedback/A/2016/12/5/f1098f87f26e45be8792297ebee166f7.jpg" alt="...">
                     <div class="caption">
                         <h3>좋아요~~</h3>
-                        <p>가격만족도/성능/사용편의성 등 : 가격도 저렴하고 좋아요^^ 상태/배송 : 배송도 빠릅니다~^^ 그 외 도움이 될 만한 사용후기 : 항상 핑크만 썼었는데 이번에 노란색 주문해서 썼어요~ 노란색 향도 좋아요~</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                        <p id="targetFeedback">가격만족도/성능/사용편의성 등 : 가격도 저렴하고 좋아요^^ 상태/배송 : 배송도 빠릅니다~^^ 그 외 도움이 될 만한 사용후기 : 항상 핑크만 썼었는데 이번에 노란색 주문해서 썼어요~ 노란색 향도 좋아요~</p>
+                        <p><a id="FeedbackGo" onclick="feedbackEvent.feedbackAnalysis(); return false;" class="btn btn-primary btn-lg" href="#" role="button">궁금해?</a></p>
                     </div>
                 </div>
             </div>

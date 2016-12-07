@@ -236,6 +236,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\photo264280621058206191.jpg" />
+    <Content Include="Images\photo264280621058206192.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="conf\plugin\MajorPlugin\MorphAnalyzer\ChartMorphAnalyzer.json">

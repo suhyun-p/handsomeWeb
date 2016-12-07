@@ -73,7 +73,7 @@ namespace Feedback.ContentsFeeder.Converter
 					content = content.Replace(curritem, String.Empty);
 				}
 			}
-
+			content = content.Replace("\n", ".");
 			content = Regex.Replace(content, @"(<br>|<br />|<br/>|</ br>|</br>|\r\n)", " ", RegexOptions.IgnoreCase);
 			content = content.Replace("&nbsp;", " ");
 			content = content.Replace("\"", "'");
