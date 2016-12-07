@@ -336,3 +336,10 @@ C:\ESM_Merge\handsomeWeb\HandsomeWeb\bin\System.Runtime.InteropServices.RuntimeI
 C:\ESM_Merge\handsomeWeb\HandsomeWeb\bin\MongoDB.Bson.xml
 C:\ESM_Merge\handsomeWeb\HandsomeWeb\bin\MongoDB.Driver.xml
 C:\ESM_Merge\handsomeWeb\HandsomeWeb\bin\MongoDB.Driver.Core.xml
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\MongoDB.Bson.dll
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\MongoDB.Driver.Core.dll
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\MongoDB.Driver.dll
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\MongoDB.Bson.xml
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\MongoDB.Driver.xml
+C:\Data\git_storage\handsomeWeb\HandsomeWeb\bin\MongoDB.Driver.Core.xml

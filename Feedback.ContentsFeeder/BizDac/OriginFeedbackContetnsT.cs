@@ -10,6 +10,9 @@ namespace Feedback.ContentsFeeder.BizDac
 {
 	public class OriginFeedbackContetnsT
 	{
+		public string ItemNo { get; set; }
+		public long OrderNo { get; set; }
+		public string BuyerID { get; set; }
 		public string Title { get; set; }
 		public string Contents { get; set; }
 		public string InputChannel { get; set; }

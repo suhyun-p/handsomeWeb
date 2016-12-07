@@ -82,3 +82,10 @@ C:\ESM_Merge\handsomeWeb\Feedback.ContentsFeeder\obj\Debug\Feedback.ContentsFeed
 C:\ESM_Merge\handsomeWeb\Feedback.ContentsFeeder\obj\Debug\Feedback.ContentsFeeder.csproj.GenerateResource.Cache
 C:\ESM_Merge\handsomeWeb\Feedback.ContentsFeeder\obj\Debug\Feedback.ContentsFeeder.dll
 C:\ESM_Merge\handsomeWeb\Feedback.ContentsFeeder\obj\Debug\Feedback.ContentsFeeder.pdb
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\MongoDB.Bson.dll
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\MongoDB.Driver.Core.dll
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\MongoDB.Driver.dll
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\MongoDB.Bson.xml
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\MongoDB.Driver.xml
+C:\Data\git_storage\handsomeWeb\Feedback.ContentsFeeder\bin\Debug\MongoDB.Driver.Core.xml

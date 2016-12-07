@@ -16,8 +16,12 @@ namespace Feedback.ContentsFeeder
 		///  생성자
 		/// </summary>
 		/// <param name="document"></param>
-		public FeedbackDocument(FbSite fbSite, string title, string document, FbInputChannel ic, DateTime fbdate)
+		public FeedbackDocument(FbSite fbSite, string itemno, long orderno, string buyerid, string title, string document, FbInputChannel ic, DateTime fbdate)
 		{
+			ItemNo = itemno;
+			OrderNo = orderno;
+			BuyerID = buyerid;
+
 			// 상품평 작성 도메인
 			FeedbackSite = fbSite;
 			FbQuality = FeedbackQuality.NotSet;
@@ -68,9 +72,11 @@ namespace Feedback.ContentsFeeder
 						ImageUrl10 = currUrl;
 						break;
 				}
+
+				imageIdx++;
 			}
 
-			imageIdx++;
+
 			#endregion
 
 			// 상품평내에 분석에 방해되는 Html과 템플릿 문구, 특수문자를 제거한다.
@@ -130,6 +136,21 @@ namespace Feedback.ContentsFeeder
 
 		}
 		#region Properties
+
+		/// <summary>
+		/// 상품번호
+		/// </summary>
+		public string ItemNo { get; set; }
+
+		/// <summary>
+		/// 주문번호
+		/// </summary>
+		public long OrderNo { get; set; }
+
+		/// <summary>
+		/// 구매자ID
+		/// </summary>
+		public string BuyerID { get; set; }
 
 		/// <summary>
 		/// 상품평 제목

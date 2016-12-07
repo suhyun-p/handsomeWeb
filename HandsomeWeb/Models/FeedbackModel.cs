@@ -49,6 +49,15 @@ namespace HandsomeWeb.Models
 
         public ObjectId _id { get; set; }
 
+		//[BsonElement("ItemNo")]
+		public string ItemNo { get; set; }
+
+		//[BsonElement("BuyerID")]
+		public string BuyerID { get; set; }
+
+		//[BsonElement("OrderNo")]
+		public long OrderNo { get; set; }
+
         //[BsonElement("Title")]
         public string Title { get; set; }
 

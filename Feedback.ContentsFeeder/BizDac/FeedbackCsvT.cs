@@ -8,6 +8,9 @@ namespace Feedback.ContentsFeeder.BizDac
 {
 	public class FeedbackCsvT
 	{
+		public string ItemNo { get; set; }
+		public long OrderNo { get; set; }
+		public string BuyerID { get; set; }
 		public string Title { get; set; }
 		public string OriginHtmlContents { get; set; }
 		public string Contents { get; set; }

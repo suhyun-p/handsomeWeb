@@ -8,8 +8,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Feedback.ContentsFeeder;
 using Feedback.ContentsFeeder.BizDac;
-
 using System.IO;
+using Excel;
+using Feedback.ContentsFeeder.FeedbackTrainingSet;
+using System;
+using System.Web.Script.Serialization;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 
 namespace Feedback.ContentsFeeder.FeedbackTrainingSet
@@ -23,6 +28,14 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 		System.Windows.Forms.ProgressBar Progressbar = null;
 		private object _lock = new object();
 		private string fileName = String.Empty;
+
+		// mongodb 접속정보
+		private string connectionString = "mongodb://handsome-test:7vjFMv1AbtMMRzuUwetQTZ9taZSOFb1j8UGs9Uj2YwuBZWXY0shu8QKCqz8u3Wk1iChWQAW1RF6U58HxFl2CWg==@handsome-test.documents.azure.com:10250/?ssl=true&sslverifycertificate=false";
+		private string userName = "handsome-test";
+		private string host = "handsome-test.documents.azure.com";
+		private string password = "7vjFMv1AbtMMRzuUwetQTZ9taZSOFb1j8UGs9Uj2YwuBZWXY0shu8QKCqz8u3Wk1iChWQAW1RF6U58HxFl2CWg==";
+		private string dbName = "Feedback";
+		private string collectionName = "FeedbackList";
 
 		#endregion
 
@@ -54,8 +67,11 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			FeedbackDocumenList = new List<FeedbackDocument>();
 			FeedbackCsvList = new List<FeedbackCsvT>();
 
+			Thread worker = new Thread(InsertFeedbackToMongodb);
+			worker.Start();
 
-
+			#region 멀티쓰레드 버전
+			/*
 			Action MakeFeedbackEntity = () =>
 			{
 				if (MsgBusFeedback == null || MsgBusFeedback.Count == 0)
@@ -94,7 +110,6 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			};
 
 
-
 			var taskArray = new[]
 			{
 				new Task(MakeFeedbackEntity),
@@ -111,10 +126,121 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			{
 				EndDate = System.DateTime.Now;
 
-				MakeDitionaryWordCount();
+				string path = fileName;
+				string writeStr = String.Empty;
+
+				//DataTable writedt = DataTable_Extensions.ConvertToDatatable<FeedbackCsvT>(FeedbackCsvList);
+				//DataTable_Extensions.ExportToExcel(writedt, fileName);
+
+				// Create a file to write to.
+				using (StreamWriter sw = File.CreateText(path))
+				{
+
+					foreach (FeedbackCsvT currJson in FeedbackCsvList)
+					{
+						FeedbackModel insertModel = new FeedbackModel();
+						var json = new JavaScriptSerializer().Serialize(currJson);
+
+						InsertFeedback(GetMongodbModel(currJson));						
+						//sw.Write(json);
+					}
+				}
 			});
+			 * */
+			#endregion
 		}
 		#endregion
+
+		private void InsertFeedbackToMongodb()
+		{
+			#region 싱글쓰레드 버전
+			if (MsgBusFeedback == null || MsgBusFeedback.Count == 0)
+			{
+				return;
+			}
+
+			int currIndex = 1;
+			try
+			{
+				while (true)
+				{
+					if (MsgBusFeedback.Count <= 0) break;
+					OriginFeedbackContetnsT dequeueItem = MsgBusFeedback.Dequeue();
+					if (dequeueItem == null) break;
+
+					FbInputChannel ic = FbInputChannel.NotSet;
+					switch (dequeueItem.InputChannel)
+					{
+						case "F":
+						case "PC":
+							ic = FbInputChannel.PC;
+							break;
+						case "M":
+						case "Android":
+						case "iOS":
+							ic = FbInputChannel.Mobile;
+							break;
+					}
+
+					FeedbackDocument newFeedbackDoc = new FeedbackDocument(FeedbackSite, dequeueItem.ItemNo, dequeueItem.OrderNo, dequeueItem.BuyerID, dequeueItem.Title, dequeueItem.Contents, ic, dequeueItem.FbDate);
+
+					InsertFeedback(GetMongodbModel(ConvertCsvFormat(newFeedbackDoc)));
+
+					Progressbar.Increment(1);
+					currIndex++;
+				}
+			}
+			catch
+			{
+				throw (new Exception(String.Format("에러발생 {0}번까지 수행했음", currIndex)));
+			}
+
+			EndDate = System.DateTime.Now;
+			#endregion
+		}
+
+		private FeedbackModel GetMongodbModel(FeedbackCsvT originData)
+		{
+			FeedbackModel feedbackModel = new FeedbackModel();
+			ImageModel imageModel = new ImageModel();
+
+			if (originData == null) return null;
+
+			feedbackModel.ItemNo = originData.ItemNo;
+			feedbackModel.BuyerID = originData.BuyerID;
+			feedbackModel.OrderNo = originData.OrderNo;
+			feedbackModel.Title = originData.Title;
+			feedbackModel.OriginHtmlContents = originData.OriginHtmlContents;
+			feedbackModel.Contents = originData.Contents;
+			feedbackModel.AnaysisedContents = originData.AnaysisedContents;
+			feedbackModel.SiteId = originData.SiteId;
+			feedbackModel.InputChannel = originData.InputChannel;
+			feedbackModel.ImageCount = originData.ImageCount;
+			feedbackModel.CountNPM = originData.CountNPM;
+			feedbackModel.RateOfValid = originData.RateOfValid;
+			feedbackModel.QualityScore = originData.QualityScore;
+			feedbackModel.PositiveScore = originData.PositiveScore;
+			feedbackModel.NgativeScore = originData.NgativeScore;
+			feedbackModel.PositiveScore = originData.PositiveScore;
+			feedbackModel.SensitiveScore = originData.SensitiveScore;
+			feedbackModel.FbDate = originData.FbDate.ToString("yyyy-MM-dd hh:mm:ss");
+
+			imageModel.ImageUrl1 = originData.ImageUrl1;
+			imageModel.ImageUrl2 = originData.ImageUrl2;
+			imageModel.ImageUrl3 = originData.ImageUrl3;
+			imageModel.ImageUrl4 = originData.ImageUrl4;
+			imageModel.ImageUrl5 = originData.ImageUrl5;
+			imageModel.ImageUrl6 = originData.ImageUrl6;
+			imageModel.ImageUrl7 = originData.ImageUrl7;
+			imageModel.ImageUrl8 = originData.ImageUrl8;
+			imageModel.ImageUrl9 = originData.ImageUrl9;
+			imageModel.ImageUrl10 = originData.ImageUrl10;
+			feedbackModel.ImageUrl = imageModel;
+
+			return feedbackModel;
+		}
+
+
 
 		private string ToCsv(string separator, IEnumerable<object> objectList)
 		{
@@ -181,9 +307,11 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 		{
 			FeedbackCsvT returnValue = new FeedbackCsvT();
 
+			returnValue.ItemNo = fd.ItemNo;
+			returnValue.OrderNo = fd.OrderNo;
+			returnValue.BuyerID = fd.BuyerID;
 			returnValue.Title = fd.Title;
 			returnValue.OriginHtmlContents = fd.OriginDocument;
-
 			returnValue.Contents = fd.UnHtmlTempDocument;
 			returnValue.AnaysisedContents = fd.AnalysisedText;
 			returnValue.ImageCount = fd.ImageCount; // 이미지 갯수
@@ -196,6 +324,17 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			returnValue.PositiveScore = fd.PositiveScore;
 			returnValue.SensitiveScore = returnValue.PositiveScore - returnValue.NgativeScore;
 			returnValue.FbDate = fd.FbDate;
+
+			returnValue.ImageUrl1 = String.Empty;
+			returnValue.ImageUrl2 = String.Empty;
+			returnValue.ImageUrl3 = String.Empty;
+			returnValue.ImageUrl4 = String.Empty;
+			returnValue.ImageUrl5 = String.Empty;
+			returnValue.ImageUrl6 = String.Empty;
+			returnValue.ImageUrl7 = String.Empty;
+			returnValue.ImageUrl8 = String.Empty;
+			returnValue.ImageUrl9 = String.Empty;
+			returnValue.ImageUrl10 = String.Empty;
 
 			int imageIdx = 1;
 			foreach (string currUrl in fd.ImageList)
@@ -255,6 +394,13 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			foreach (DataRow curritem in this.feedbackTable.Rows)
 			{
 				OriginFeedbackContetnsT newOrgFb = new OriginFeedbackContetnsT();
+				long orderno = 0;
+				newOrgFb.ItemNo = curritem["ItemNo"].ToString();
+				if (Int64.TryParse(curritem["OrderNo"].ToString(), out orderno) == false) continue;
+
+				newOrgFb.OrderNo = orderno;
+				newOrgFb.BuyerID = curritem["BuyerID"].ToString();
+
 				newOrgFb.Title = curritem["title"].ToString();
 				newOrgFb.Contents = curritem["contents"].ToString();
 				newOrgFb.InputChannel = curritem["inputchannel"].ToString();
@@ -304,6 +450,22 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 
 				keywordlist.Add(new KeywordCount(key, value));
 			}
+
+
+			string path = fileName + "_Dic.csv";
+			string writeStr = String.Empty;
+			writeStr = ToCsv(",", keywordlist.Where<KeywordCount>(p => p.Count > 1));
+
+			if (File.Exists(path))
+			{
+				File.Delete(path);
+			}
+
+			// Create a file to write to.
+			using (StreamWriter sw = File.CreateText(path))
+			{
+				sw.Write(writeStr);
+			}
 		}
 
 		/// <summary>
@@ -327,6 +489,73 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 		public List<FeedbackDocument> FeedbackDocumenList { get; set; }
 		public List<FeedbackCsvT> FeedbackCsvList { get; set; }
 		private FbSite FeedbackSite { get; set; }
+		#endregion
+
+
+
+		#region Feedback
+		public List<FeedbackModel> GetAllFeedbacks()
+		{
+			try
+			{
+				var collection = GetFeedbacksCollection();
+				return collection.Find(new BsonDocument()).ToList();
+			}
+			catch (MongoConnectionException ex)
+			{
+				throw ex;
+			}
+		}
+
+		public void InsertFeedback(FeedbackModel request)
+		{
+			var collection = GetFeedbacksCollectionForEdit();
+			try
+			{
+				if (collection.Count<FeedbackModel>(p => p.OrderNo == request.OrderNo) == 0)
+				{
+					collection.InsertOne(request);
+				}
+			}
+			catch (MongoCommandException ex)
+			{
+				string msg = ex.Message;
+			}
+		}
+
+		//public void UpsertFeedback(FeedbackModel request)
+		//{
+		//	var collection = GetFeedbacksCollectionForEdit();
+		//	try
+		//	{
+		//		var filter = Builders<FeedbackModel>.Filter.Where(x => x.OrderNo == request.OrderNo);
+		//		var replaceResult = collection.ReplaceOne(filter, request, new UpdateOptions { IsUpsert = true });
+		//		//return replaceResult.UpsertedId;
+		//	}
+		//	catch (MongoCommandException ex)
+		//	{
+		//		throw ex;
+		//	}
+		//}
+
+
+
+		private IMongoCollection<FeedbackModel> GetFeedbacksCollection()
+		{
+			MongoClient client = new MongoClient(connectionString);
+			var database = client.GetDatabase(dbName);
+			var todoFeedbackCollection = database.GetCollection<FeedbackModel>(collectionName);
+			return todoFeedbackCollection;
+		}
+
+		private IMongoCollection<FeedbackModel> GetFeedbacksCollectionForEdit()
+		{
+			MongoClient client = new MongoClient(connectionString);
+			var database = client.GetDatabase(dbName);
+			var todoFeedbackCollection = database.GetCollection<FeedbackModel>(collectionName);
+			return todoFeedbackCollection;
+		}
+
 		#endregion
 	}
 }
