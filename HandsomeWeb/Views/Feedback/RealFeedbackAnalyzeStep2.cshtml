@@ -1,0 +1,75 @@
+﻿@model HandsomeWeb.Models.RealFeedbackSearchModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RealFeedbackAnalyzeStep2</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    @*<script src="~/Scripts/Feedback/realFeedbackSearch.js"></script>*@
+
+    <script>
+        function FeedbackParser() { }
+        FeedbackParser.Parsing = function () {
+
+            var contents = $(".caption > p").html();
+            // var feedback = $('#targetFeedback').val();
+            var param = [
+                    { name: 'Name1', value: contents }
+            ];
+
+            $.ajax({
+                url: "FeedbackParsingData",
+                data: param,
+                type: 'POST',
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function (data) {
+                    alert(data);
+                    var stringArray = data.split(' / ');
+                    $("#AnalyzeFeedbackResult").append("<h1>" + stringArray[1] + " 상품평입니다.</h1>")
+                    $("#AnalyzeFeedbackResult").append("<h1>감성점수는 " + stringArray[2] + " 점!</h1>")
+                    $("#AnalyzeFeedbackResult").append("<h1>Quality는 " + stringArray[0] + "</h1>")
+                },
+                error: function (result) {
+                    alert("Fail");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="@Model.ImageUrl" alt="...">
+                    <div class="caption">
+                        <h3>@Model.Title</h3>
+                        <p>@Model.Contents</p>
+                        <p><a href="javascript:" onclick="FeedbackParser.Parsing();return false;" class="btn btn-primary" role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+            <div id="AnalyzeFeedbackResult">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
