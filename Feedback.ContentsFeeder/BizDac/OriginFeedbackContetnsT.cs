@@ -13,5 +13,6 @@ namespace Feedback.ContentsFeeder.BizDac
 		public string Title { get; set; }
 		public string Contents { get; set; }
 		public string InputChannel { get; set; }
+		public DateTime FbDate { get; set; }
 	}
 }

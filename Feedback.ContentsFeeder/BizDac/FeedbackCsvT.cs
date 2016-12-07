@@ -31,6 +31,6 @@ namespace Feedback.ContentsFeeder.BizDac
 		public string ImageUrl8 { get; set; }
 		public string ImageUrl9 { get; set; }
 		public string ImageUrl10 { get; set; }
-		public DateTime FbData { get; set; }
+		public DateTime FbDate { get; set; }
 	}
 }

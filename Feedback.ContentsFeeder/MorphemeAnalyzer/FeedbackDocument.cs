@@ -16,12 +16,14 @@ namespace Feedback.ContentsFeeder
 		///  생성자
 		/// </summary>
 		/// <param name="document"></param>
-		public FeedbackDocument(FbSite fbSite, string title, string document, FbInputChannel ic)
+		public FeedbackDocument(FbSite fbSite, string title, string document, FbInputChannel ic, DateTime fbdate)
 		{
 			// 상품평 작성 도메인
 			FeedbackSite = fbSite;
 			FbQuality = FeedbackQuality.NotSet;
 			InputChannel = ic;
+			Title = title;
+			FbDate = fbdate;
 
 			// 상품평 내용은 제목과 내용의 합으로 구성한다.
 			//OriginDocument = String.Format("{0} {1}", title, document);
@@ -29,7 +31,7 @@ namespace Feedback.ContentsFeeder
 
 			// 상품품내에 존재하는 상품평 이미지를 추출한다.
 			ImageList = ContentsParser.GetImgHtmlList(fbSite, document);
-			
+
 			// 상품평내에 분석에 방해되는 Html과 템플릿 문구, 특수문자를 제거한다.
 			UnHtmlTempDocument = new ContentsParser().vbUnHtml(fbSite, OriginDocument);
 
@@ -39,9 +41,9 @@ namespace Feedback.ContentsFeeder
 				{
 					// Html등이 제거된 문자열의 형태소 분석을 시작한다.
 					AnalysisedSenCollection = MorphemeAnalyzer.DoMorphemeAnalysis(UnHtmlTempDocument);
-					
+
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					throw ex;
 					//this.FbQuality = FeedbackQuality.NotSet;
@@ -87,6 +89,11 @@ namespace Feedback.ContentsFeeder
 		#region Properties
 
 		/// <summary>
+		/// 상품평 제목
+		/// </summary>
+		public string Title { get; set; }
+
+		/// <summary>
 		/// 상품평 컨텐츠내 반복되는 단어의 키워드와 횟수를 문장 구분에 상관없이 총합을 구한다.
 		/// </summary>
 		public List<WordTokenT> UniqueWordTokenCollection { get; set; }
@@ -101,6 +108,11 @@ namespace Feedback.ContentsFeeder
 		/// Contents안에 포함된 상품평 이미지 갯수
 		/// </summary>
 		public List<String> ImageList { get; set; }
+
+		/// <summary>
+		/// 상품평 작성일자
+		/// </summary>
+		public DateTime FbDate { get; set; }
 
 		/// <summary>
 		/// 상품평 이미지 갯수
@@ -225,7 +237,7 @@ namespace Feedback.ContentsFeeder
 		/// <summary>
 		/// 상품평내 체언 (명사)갯수
 		/// </summary>
-		public int CountN 
+		public int CountN
 		{
 			get
 			{
@@ -307,7 +319,7 @@ namespace Feedback.ContentsFeeder
 				return TokenCount > 0 ? ((double)TotalCntNPM / (double)TokenCount) * 100 : 0;
 			}
 		}
-		
+
 		/// <summary>
 		/// Contents 사용자 등록 원본
 		/// </summary>
@@ -323,8 +335,8 @@ namespace Feedback.ContentsFeeder
 		/// </summary>
 		public FbSite FeedbackSite { get; set; }
 
-		
-		
+
+
 		/// <summary>
 		/// PC, Mobile
 		/// </summary>
@@ -334,7 +346,7 @@ namespace Feedback.ContentsFeeder
 		/// 현재 상품평의 품질점수
 		/// </summary>
 		public FeedbackQuality FbQuality { get; set; }
-		
+
 		/// <summary>
 		/// 상품평내 긍정 점수
 		/// </summary>
@@ -347,10 +359,10 @@ namespace Feedback.ContentsFeeder
 				{
 					if (PositiveWordDictionary.positivewordDic.ContainsKey(currword.Keyword))
 					{
-						returnValue += PositiveWordDictionary.positivewordDic[currword.Keyword] * ((double)currword.RepeatCount+1);
+						returnValue += PositiveWordDictionary.positivewordDic[currword.Keyword] * ((double)currword.RepeatCount + 1);
 					}
 				}
-				
+
 				return returnValue;
 			}
 		}
@@ -406,14 +418,14 @@ namespace Feedback.ContentsFeeder
 			// NPM값이 3개 이하이면서 75% 미만이면 Junk
 			if (TotalCntNPM <= 2) return FeedbackQuality.Junk;
 			if (TotalCntNPM <= 3 && RateOfValid < 75) return FeedbackQuality.Junk;
-			if (TotalCntNPM <= 3 && RateOfValid >= 75 && RepeatSentenceCount > 0 ) return FeedbackQuality.Junk;
+			if (TotalCntNPM <= 3 && RateOfValid >= 75 && RepeatSentenceCount > 0) return FeedbackQuality.Junk;
 
 			// NPM값이 10개 이하이면서 Valid 비율이 50%이하이면 반복적인 문구로 판단해서 정크
 			if (TotalCntNPM <= 10 && RateOfValid <= 50 && ImageCount == 0) return FeedbackQuality.Junk;
 
 			// NPM값이 10개 이하이면서 Valid 비율이 50%이하이면 반복적인 문구로 판단해서 정크
 			if (TotalCntNPM <= 10 && RateOfValid <= 34) return FeedbackQuality.Junk;
-			
+
 			#endregion
 
 			if (TotalCntNPM <= 3 && RateOfValid >= 75) return FeedbackQuality.BelowAverage;
@@ -456,8 +468,8 @@ namespace Feedback.ContentsFeeder
 	/// </summary>
 	public enum FbSite
 	{
-		Auction=1,
-		Gmarket=2
+		Auction = 1,
+		Gmarket = 2
 	}
 
 	/// <summary>
@@ -465,10 +477,10 @@ namespace Feedback.ContentsFeeder
 	/// </summary>
 	public enum FbInputChannel
 	{
-		NotSet=0,
-		PC=1,
-		Mobile=2
-		
+		NotSet = 0,
+		PC = 1,
+		Mobile = 2
+
 	}
 
 	/// <summary>

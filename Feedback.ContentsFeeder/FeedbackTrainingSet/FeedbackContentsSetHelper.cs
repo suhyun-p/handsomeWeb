@@ -43,19 +43,19 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			Progressbar = progressbar;
 			fileName = filename;
 
-			if(feedbackDs == null || feedbackDs.Tables.Count == 0) return;
+			if (feedbackDs == null || feedbackDs.Tables.Count == 0) return;
 
 			if (feedbackDs.Tables[tableName] == null || feedbackDs.Tables[tableName].Rows.Count == 0) return;
 
 			this.feedbackTable = feedbackDs.Tables[tableName];
-			
+
 			MakeQueueData();
 
 			FeedbackDocumenList = new List<FeedbackDocument>();
 			FeedbackCsvList = new List<FeedbackCsvT>();
 
-			
-			
+
+
 			Action MakeFeedbackEntity = () =>
 			{
 				if (MsgBusFeedback == null || MsgBusFeedback.Count == 0)
@@ -83,7 +83,7 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 							break;
 					}
 
-					FeedbackDocument newFeedbackDoc = new FeedbackDocument(FeedbackSite, dequeueItem.Title, dequeueItem.Contents, ic);
+					FeedbackDocument newFeedbackDoc = new FeedbackDocument(FeedbackSite, dequeueItem.Title, dequeueItem.Contents, ic, dequeueItem.FbDate);
 
 
 					FeedbackDocumenList.Add(newFeedbackDoc);
@@ -206,6 +206,9 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 		{
 			FeedbackCsvT returnValue = new FeedbackCsvT();
 
+			returnValue.Title = fd.Title;
+			returnValue.OriginHtmlContents = fd.OriginDocument;
+
 			returnValue.Contents = fd.UnHtmlTempDocument;
 			returnValue.AnaysisedContents = fd.AnalysisedText;
 			returnValue.ImageCount = fd.ImageCount; // 이미지 갯수
@@ -217,6 +220,48 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			returnValue.NgativeScore = fd.NgativeScore;
 			returnValue.PositiveScore = fd.PositiveScore;
 			returnValue.SensitiveScore = returnValue.PositiveScore - returnValue.NgativeScore;
+			returnValue.FbDate = fd.FbDate;
+
+			int imageIdx = 1;
+			foreach (string currUrl in fd.ImageList)
+			{
+				switch (imageIdx)
+				{
+					case 1:
+						returnValue.ImageUrl1 = currUrl;
+						break;
+					case 2:
+						returnValue.ImageUrl2 = currUrl;
+						break;
+					case 3:
+						returnValue.ImageUrl3 = currUrl;
+						break;
+					case 4:
+						returnValue.ImageUrl4 = currUrl;
+						break;
+					case 5:
+						returnValue.ImageUrl5 = currUrl;
+						break;
+					case 6:
+						returnValue.ImageUrl6 = currUrl;
+						break;
+					case 7:
+						returnValue.ImageUrl7 = currUrl;
+						break;
+					case 8:
+						returnValue.ImageUrl8 = currUrl;
+						break;
+					case 9:
+						returnValue.ImageUrl9 = currUrl;
+						break;
+					case 10:
+						returnValue.ImageUrl10 = currUrl;
+						break;
+
+				}
+				imageIdx++;
+			}
+
 			return returnValue;
 
 		}
@@ -238,6 +283,17 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 				newOrgFb.Title = curritem["title"].ToString();
 				newOrgFb.Contents = curritem["contents"].ToString();
 				newOrgFb.InputChannel = curritem["inputchannel"].ToString();
+				DateTime fbdate = DateTime.MinValue;
+
+				// 엑셀에서 상품평 작성일자 수립에 실패하면 1년전 상품평으로 넣어준다.
+				if (DateTime.TryParse(curritem["fbdate"].ToString(), out fbdate) == false)
+				{
+					newOrgFb.FbDate = DateTime.Now.AddYears(-1);
+				}
+				else
+				{
+					newOrgFb.FbDate = fbdate;
+				}
 
 				MsgBusFeedback.Enqueue(newOrgFb);
 			}
@@ -249,7 +305,7 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			//UniqueWordTokenCollection
 			Dictionary<string, int> dicWord = new Dictionary<string, int>();
 
-			foreach(FeedbackDocument currDoc in FeedbackDocumenList)
+			foreach (FeedbackDocument currDoc in FeedbackDocumenList)
 			{
 				foreach (WordTokenT currtoken in currDoc.UniqueWordTokenCollection)
 				{
@@ -283,7 +339,7 @@ namespace Feedback.ContentsFeeder.FeedbackTrainingSet
 			{
 				File.Delete(path);
 			}
-		
+
 			// Create a file to write to.
 			using (StreamWriter sw = File.CreateText(path))
 			{
