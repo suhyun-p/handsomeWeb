@@ -71,34 +71,35 @@ namespace HandsomeWeb.Controllers
         {
             #region feedback
 
-            List<FeedbackModel> feedbackRequest = new List<FeedbackModel>();
-            FeedbackModel reqeust = new FeedbackModel()
-            {
-                Title = string.IsNullOrEmpty(Name1) ? "TestInsert_" + Convert.ToString(DateTime.Now) : Name1,
-                OriginHtmlContents = "",
-                Contents = "",
-                AnaysisedContents = "",
-                SiteId = 0,
-                InputChannel = 0,
-                ImageCount = 0,
-                CountNPM = 0,
-                RateOfValid = 0,
-                QualityScore = 0,
-                PositiveScore = 0,
-                NgativeScore = 0,
-                SensitiveScore = 0,
-                ImageUrl1 = "",
-                ImageUrl2 = "",
-                ImageUrl3 = "",
-                ImageUrl4 = "",
-                ImageUrl5 = "",
-                ImageUrl6 = "",
-                ImageUrl7 = "",
-                ImageUrl8 = "",
-                ImageUrl9 = "",
-                ImageUrl10 = "",
-                FbData = DateTime.Now
-            };
+            //List<FeedbackModel> feedbackRequest = new List<FeedbackModel>();
+            //FeedbackModel reqeust = new FeedbackModel()
+            //{
+            //    Title = string.IsNullOrEmpty(Name1) ? "TestInsert_" + Convert.ToString(DateTime.Now) : Name1,
+            //    OriginHtmlContents = "",
+            //    Contents = "",
+            //    AnaysisedContents = "",
+            //    SiteId = 0,
+            //    InputChannel = 0,
+            //    ImageCount = 0,
+            //    CountNPM = 0,
+            //    RateOfValid = 0,
+            //    QualityScore = 0,
+            //    PositiveScore = 0,
+            //    NgativeScore = 0,
+            //    SensitiveScore = 0,
+            //    ImageUrl = 
+            //    ImageUrl1 = "",
+            //    ImageUrl2 = "",
+            //    ImageUrl3 = "",
+            //    ImageUrl4 = "",
+            //    ImageUrl5 = "",
+            //    ImageUrl6 = "",
+            //    ImageUrl7 = "",
+            //    ImageUrl8 = "",
+            //    ImageUrl9 = "",
+            //    ImageUrl10 = "",
+            //    FbDate = DateTime.Now
+            //};
 
             // InsertFeedback(reqeust);
 
@@ -185,7 +186,7 @@ namespace HandsomeWeb.Controllers
         {
             try
             {
-                var collection = GetFeedbacksCollection();
+                var collection = GetFeedbacksCollection();         
                 return collection.Find(new BsonDocument()).ToList();
             }
             catch (MongoConnectionException)
