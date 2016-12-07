@@ -29,8 +29,49 @@ namespace Feedback.ContentsFeeder
 			//OriginDocument = String.Format("{0} {1}", title, document);
 			OriginDocument = document;
 
-			// 상품품내에 존재하는 상품평 이미지를 추출한다.
+			#region 상품평내에 존재하는 상품평 이미지를 추출한다. 이미지 Url 채워넣기
 			ImageList = ContentsParser.GetImgHtmlList(fbSite, document);
+
+			int imageIdx = 1;
+			foreach (string currUrl in ImageList)
+			{
+				switch (imageIdx)
+				{
+					case 1:
+						ImageUrl1 = currUrl;
+						break;
+					case 2:
+						ImageUrl2 = currUrl;
+						break;
+					case 3:
+						ImageUrl3 = currUrl;
+						break;
+					case 4:
+						ImageUrl4 = currUrl;
+						break;
+					case 5:
+						ImageUrl5 = currUrl;
+						break;
+					case 6:
+						ImageUrl6 = currUrl;
+						break;
+					case 7:
+						ImageUrl7 = currUrl;
+						break;
+					case 8:
+						ImageUrl8 = currUrl;
+						break;
+					case 9:
+						ImageUrl9 = currUrl;
+						break;
+					case 10:
+						ImageUrl10 = currUrl;
+						break;
+				}
+			}
+
+			imageIdx++;
+			#endregion
 
 			// 상품평내에 분석에 방해되는 Html과 템플릿 문구, 특수문자를 제거한다.
 			UnHtmlTempDocument = new ContentsParser().vbUnHtml(fbSite, OriginDocument);
@@ -54,6 +95,8 @@ namespace Feedback.ContentsFeeder
 			UniqueWordTokenCollection = MakeUniqueWordTokenList();
 
 			this.FbQuality = EvaluateQuality();
+
+
 
 		}
 
@@ -108,6 +151,16 @@ namespace Feedback.ContentsFeeder
 		/// Contents안에 포함된 상품평 이미지 갯수
 		/// </summary>
 		public List<String> ImageList { get; set; }
+		public string ImageUrl1 { get; set; }
+		public string ImageUrl2 { get; set; }
+		public string ImageUrl3 { get; set; }
+		public string ImageUrl4 { get; set; }
+		public string ImageUrl5 { get; set; }
+		public string ImageUrl6 { get; set; }
+		public string ImageUrl7 { get; set; }
+		public string ImageUrl8 { get; set; }
+		public string ImageUrl9 { get; set; }
+		public string ImageUrl10 { get; set; }
 
 		/// <summary>
 		/// 상품평 작성일자
