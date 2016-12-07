@@ -20,6 +20,7 @@ using HandsomeWeb.Models;
 using Feedback.ContentsFeeder.AzureWebservice;
 
 using HandsomeWeb.Models;
+using System.Text;
 
 namespace HandsomeWeb.Controllers
 {
@@ -63,28 +64,24 @@ namespace HandsomeWeb.Controllers
         public ActionResult RealFeedbackAnalyzeStep2(string orderNo)
         {
             string prvwNo = orderNo;
+            // http://bamboo.auction.co.kr/Feedback/Feedback/GetFeedbackSecondDetail?orderno=1223317364
             string url = String.Format("http://bamboo.gmarket.co.kr/Feedback/Premium/GetPremiumFeedbackDetail?prvwNo={0}", prvwNo);
 
+            HandsomeWeb.Models.APIResponseT model = new HandsomeWeb.Models.APIResponseT();
             using (var client = new WebClient())
             {
+                client.Encoding = Encoding.UTF8;
+
                 var json = client.DownloadString(url);
                 var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-               // SomeModel model = serializer.Deserialize<SomeModel>(json);
+                model = serializer.Deserialize<HandsomeWeb.Models.APIResponseT>(json);
                 // TODO: do something with the model
             }
 
-            
-
-
-
-
-                // http://bamboo.auction.co.kr/Feedback/Feedback/GetFeedbackSecondDetail?orderno=1223317364
-
-
-                RealFeedbackSearchModel data = new RealFeedbackSearchModel();
-            data.Title = "좋아요~~";
-            data.Contents = "가격만족도/성능/사용편의성 등 : 가격도 저렴하고 좋아요^^ 상태/배송 : 배송도 빠릅니다~^^ 그 외 도움이 될 만한 사용후기 : 항상 핑크만 썼었는데 이번에 노란색 주문해서 썼어요~ 노란색 향도 좋아요~~";
-            data.ImageUrl = "http://img.iacstatic.co.kr/feedback/A/2016/12/5/f1098f87f26e45be8792297ebee166f7.jpg";
+            RealFeedbackSearchModel data = new RealFeedbackSearchModel();
+            data.Title = model.Result.model.PRvwNm;
+            data.Contents = model.Result.model.PRvwTxt;
+            data.ImageUrl = model.Result.model.PhtUrl;
 
             return View(data);
         }
