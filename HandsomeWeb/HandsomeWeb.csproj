@@ -327,11 +327,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Feedback\RealFeedbackAnalyze.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\FeedbackSearch\Index.cshtml" />
-=======
     <Content Include="Views\Feedback\RealFeedbackAnalyzeStep2.cshtml" />
->>>>>>> 6092aed2684e05a9c0a34c323149a8c6ba8f5f2d
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
