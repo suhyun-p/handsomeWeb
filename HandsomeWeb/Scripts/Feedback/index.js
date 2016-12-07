@@ -21,4 +21,26 @@
             }
         });
     });
+
+    $('#MongoTest').on('click', function () {
+        var feedback = $('#targetFeedback').val();
+        var param = [
+                { name: 'Name1', value: feedback }
+        ];
+
+        $.ajax({
+            url: "Feedback/MongoDBTest",
+            data: param,
+            type: 'POST',
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function (data) {
+                alert(data);
+            },
+            error: function (result) {
+                alert("Fail");
+            }
+        });
+    });
 });
