@@ -19,7 +19,7 @@ namespace HandsomeWeb.Controllers
 		[ValidateInput(false)]
 		public JsonResult FeedbackParsing(string Name1)
 		{
-			FeedbackDocument test = new FeedbackDocument(FbSite.Gmarket, String.Empty, Name1, FbInputChannel.PC, DateTime.Now);
+			FeedbackDocument test = new FeedbackDocument(FbSite.Auction, String.Empty, Name1, FbInputChannel.PC, DateTime.Now);
 
 			string sensitive = "긍정도 부정도 아닌";
 
@@ -34,7 +34,7 @@ namespace HandsomeWeb.Controllers
 
 
 
-			return Json(String.Format("당신의 점수는 {0}점입니다.\n당신의 글은 {1} 상품평입니다. \n상품평의 감성점수는 {2}점 입니다.", test.FbQuality, sensitive, test.SensitiveScore), JsonRequestBehavior.AllowGet);
+			return Json(String.Format("당신의 점수는 {0}점입니다.\n당신의 글은 {1} 상품평입니다. \n상품평의 감성점수는 {2}점 입니다. {3} {4} {5}", test.FbQuality, sensitive, test.SensitiveScore, test.AnalysisedText, test.PositiveScore, test.NgativeScore), JsonRequestBehavior.AllowGet);
 		}
 
 
