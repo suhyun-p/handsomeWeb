@@ -42,9 +42,14 @@
                     $(".caption > h3").html(data.Title);
                     $(".caption > p:first").html(data.Contents);
                     $(".thumbnail > img").attr("src", data.ImageUrl);
+
+                    $("#AnalyzeFeedbackResult").html("");
+                    $("#AnalyzeFeedbackResult").append("<h1>" + data.Sensitive + " 상품평입니다.</h1>")
+                    $("#AnalyzeFeedbackResult").append("<h1>감성점수는 " + data.SensitiveScore + " 점!</h1>")
+                    $("#AnalyzeFeedbackResult").append("<h1>Quality는 " + data.FbQuality + "</h1>")
                 },
                 error: function (result) {
-                    alert("Fail");
+                    alert("GetRealFeedback Fail");
                 }
             });
         };
@@ -96,6 +101,9 @@
                         <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                     </div>
                 </div>
+            </div>
+            <div id="AnalyzeFeedbackResult">
+
             </div>
         </div>
     </div>

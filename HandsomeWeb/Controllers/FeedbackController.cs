@@ -103,10 +103,35 @@ namespace HandsomeWeb.Controllers
                 // TODO: do something with the model
             }
 
+            FeedbackDocument test = new FeedbackDocument(FbSite.Auction, String.Empty, 0, String.Empty, String.Empty, model.Result.model.PRvwTxt, FbInputChannel.PC, DateTime.Now);
+
+            string sensitive = "긍정도 부정도 아닌";
+
+            if (test.SensitiveScore > 0)
+            {
+                sensitive = "긍정적인 평가의";
+            }
+            else if (test.SensitiveScore < 0)
+            {
+                sensitive = "부정적인 평가의 ";
+            }
+
+
+
             RealFeedbackSearchModel data = new RealFeedbackSearchModel();
             data.Title = model.Result.model.PRvwNm;
             data.Contents = model.Result.model.PRvwTxt;
             data.ImageUrl = model.Result.model.PhtUrl;
+
+
+            data.FbQuality = test.FbQuality;
+            data.Sensitive = sensitive;
+            data.SensitiveScore = test.SensitiveScore;
+            data.AnalysisedText = test.AnalysisedText;
+            data.PositiveScore = test.PositiveScore;
+            data.NgativeScore = test.NgativeScore;
+
+            data.FbQuality = test.FbQuality;
 
             return Json(data, JsonRequestBehavior.AllowGet);
             // return RedirectToAction("RealFeedbackAnalyzeStep2", "Feedback");
