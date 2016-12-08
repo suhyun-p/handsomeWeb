@@ -1,0 +1,146 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    @*<script src="~/Scripts/Feedback/realFeedbackSearch.js"></script>*@
+
+    <script>
+        function feedbackEvent() { }
+        feedbackEvent.searchFeedbackReal = function () {
+
+            var feedbackNo = $("#inputFeedbackNo").val();
+
+            var param = [
+                    { name: 'orderno', value: feedbackNo }
+            ];
+
+            $.ajax({
+                url: "GetRealFeedback",
+                data: param,
+                type: 'GET',
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function (data) {
+                    $(".caption > h3").html(data.Title);
+                    $(".caption > p:first").html(data.Contents);
+                    $(".thumbnail > img").attr("src", data.ImageUrl);
+
+                    $("#AnalyzeFeedbackResult").html("");
+                    $("#AnalyzeFeedbackResult").append("" + data.FbMsg + "</h1>")
+                    if(data.PositiveScore > 0) $("#AnalyzeFeedbackResult").append("<h2>긍정적 강도는 " + data.PositiveScore + " 점</h2>")
+                    if (data.NgativeScore > 0) $("#AnalyzeFeedbackResult").append("<h2>부정적 강도는 " + data.NgativeScore + " 점으로</h2>")
+                    if (data.PositiveScore == 0 && data.NgativeScore == 0) {
+                    	//$("#AnalyzeFeedbackResult").append("<h2>최종 감성지표 " + data.SensitiveScore + " 점입니다.</h2>")
+                    }
+                    else {
+                    	$("#AnalyzeFeedbackResult").append("<h2>최종 감성지표 " + data.SensitiveScore + " 점입니다.</h2>")
+                    }
+                    
+                    $("#AnalyzeFeedbackResult").append("<h1>" + data.Sensitive + "</h1>")
+                },
+                error: function (result) {
+                	var feedbackNo = $("#inputFeedbackNo").val();
+
+                	feedbackNo = parseInt(feedbackNo) + 1;
+
+                	$("#inputFeedbackNo").val(feedbackNo);
+
+                	feedbackEvent.searchFeedbackReal();
+                }
+            });
+        };
+
+        feedbackEvent.searchFeedbackRealNext = function () {
+            var feedbackNo = $("#inputFeedbackNo").val();
+
+            feedbackNo = parseInt(feedbackNo) + 1;
+
+            $("#inputFeedbackNo").val(feedbackNo);
+
+            feedbackEvent.searchFeedbackReal();
+        };
+
+        feedbackEvent.searchFeedbackRealPrev = function () {
+        	var feedbackNo = $("#inputFeedbackNo").val();
+
+        	feedbackNo = parseInt(feedbackNo) - 1;
+
+        	$("#inputFeedbackNo").val(feedbackNo);
+
+        	feedbackEvent.searchFeedbackReal();
+        };
+
+        feedbackEvent.feedbackAnalysis = function () {
+        	var feedback = $('#targetFeedback').html();
+
+        	var param = [
+					{ name: 'Name1', value: feedback }
+        	];
+
+        	$.ajax({
+        		url: "FeedbackParsing",
+        		data: param,
+        		type: 'POST',
+        		dataType: "json",
+        		async: false,
+        		cache: false,
+        		success: function (data) {
+        			alert(data);
+        		},
+        		error: function (result) {
+        			alert("Fail");
+        		}
+        	});
+        };
+
+    </script>
+
+</head>
+<body>
+    <div class="jumbotron">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="InputFeedbackNo">상품평 번호</label>
+                <input type="text" class="form-control" id="inputFeedbackNo" placeholder="FeedbackNo" value="41170545" />
+            </div>
+            <button id="searchFeedbackReal" class="btn btn-default" href="javascript:;" onclick="feedbackEvent.searchFeedbackReal(); return false;" >Search Real Feedback</button>
+			<button id="searchFeedbackReal" class="btn btn-default" href="javascript:;" onclick="feedbackEvent.searchFeedbackRealNext(); return false;">Next</button>
+        </form>
+        
+
+        <div id="realFeedback" class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="http://img.iacstatic.co.kr/feedback/A/2016/12/5/f1098f87f26e45be8792297ebee166f7.jpg" alt="...">
+                    <div class="caption">
+                        <h3>좋아요~~</h3>
+                        <p id="targetFeedback">가격만족도/성능/사용편의성 등 : 가격도 저렴하고 좋아요^^ 상태/배송 : 배송도 빠릅니다~^^ 그 외 도움이 될 만한 사용후기 : 항상 핑크만 썼었는데 이번에 노란색 주문해서 썼어요~ 노란색 향도 좋아요~</p>
+                        <p><a id="FeedbackGo" onclick="feedbackEvent.feedbackAnalysis(); return false;" class="btn btn-primary btn-lg" href="#" role="button">궁금해?</a></p>
+                    </div>
+                </div>
+            </div>
+            <div id="AnalyzeFeedbackResult">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

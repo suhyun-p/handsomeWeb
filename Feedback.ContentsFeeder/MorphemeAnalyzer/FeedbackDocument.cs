@@ -561,39 +561,6 @@ namespace Feedback.ContentsFeeder
 
 			Task<string> result = AzureMLWsHelper.InvokeRequestResponseService(req);
 
-		
-			
-
-
-			
-			//Action InvokeAzureMLWs=() =>
-			//{
-			////	Task<string> result = AzureMLWsHelper.InvokeRequestResponseService(req);
-			//	//evaluationStr =  result.Result; 
-
-			//	//result = AzureMLWsHelper.InvokeRequestResponseService(req);
-
-				
-			//	//evaluationStr = result.Result; 
-			//};
-
-			//var taskAzureArray = new[]
-			//{
-			//	new Task(InvokeAzureMLWs)
-			//};
-
-			//foreach (var task in taskAzureArray)
-			//{
-			//	task.Start();
-			//}
-	
-
-			//Task.Factory.ContinueWhenAll(taskAzureArray, completedTasks =>
-			//{
-			//	evaluationStr = result.Result;
-			//	if(false == String.IsNullOrEmpty(evaluationStr)) currQuality =  FeedbackQuality.MostExcellent;
-			//});
-
 			evaluationStr = result.Result;
 
 			dynamic json = new JavaScriptSerializer().DeserializeObject(evaluationStr);
@@ -607,11 +574,6 @@ namespace Feedback.ContentsFeeder
 			catch
 			{
 			}
-
-			//string test = json["test"];
-			//if (false == String.IsNullOrEmpty(evaluationStr)) this.FbQuality = FeedbackQuality.MostExcellent;
-
-			//this.FbQuality = FeedbackQuality.MostExcellent;
 		}
 	}
 
