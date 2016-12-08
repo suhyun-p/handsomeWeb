@@ -49,15 +49,15 @@ realFeedbackAnalyze.init = function(){
         ];
 
         $.ajax({
-            url: "Feedback/MongoDBTest",
+        	url: "FeedbackSearch/MongoDBTest",
             data: param,
             type: 'POST',
             dataType: "json",
-            async: false,
-            cache: false,
+            async: true,
+            cache: true,
             success: function (data) {
                 $.each(data, function (key, value) {
-                    $('#myTable > tbody:last').append('<tr><td>' + key + '</td><td>' + value.Title + '</td><td>' + value.Content + '</td></tr>')
+                    $('#myTable > tbody:last').append('<tr><td>' + key + '</td><td>' + value.Title + '</td><td>' + value.Contents + '</td></tr>')
                 });
             },
             error: function (result) {

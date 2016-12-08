@@ -35,7 +35,7 @@ realFeedbackAnalyze.init = function () {
         ];
 
         $.ajax({
-            url: "Feedback/MongoDBTest",
+        	url: "FeedbackSearch/MongoDBTest",
             data: param,
             type: 'POST',
             dataType: "json",

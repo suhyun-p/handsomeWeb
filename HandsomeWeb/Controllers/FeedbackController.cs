@@ -61,6 +61,13 @@ namespace HandsomeWeb.Controllers
             return View();
         }
 
+		public ActionResult NewFeedbackUX()
+        {
+            return View();
+        }
+
+		
+
         public ActionResult RealFeedbackAnalyzeStep2(string orderNo)
         {
             string prvwNo = orderNo;
@@ -148,11 +155,11 @@ namespace HandsomeWeb.Controllers
 					break;
 
 				case FeedbackQuality.Good:
-					data.FbMsg = "<h1>품질은 좋은 상품평입니다 (3점)<h1/>";
+					data.FbMsg = "<h1>품질 좋은 상품평입니다 (3점)<h1/>";
 					break;
 
 				case FeedbackQuality.Excellent:
-					data.FbMsg = "<h1>품질이 훌륭합니다 (4점)<h1/>";
+					data.FbMsg = "<h1>품질이 아주 훌륭합니다 (4점)<h1/>";
 					break;
 
 				case FeedbackQuality.MostExcellent:

@@ -236,8 +236,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\azureMlWs.png" />
+    <Content Include="Images\ds.png" />
+    <Content Include="Images\feedbackdocument.png" />
+    <Content Include="Images\intro1.png" />
+    <Content Include="Images\intro2.png" />
+    <Content Include="Images\mlmodel.png" />
+    <Content Include="Images\mongodb.png" />
     <Content Include="Images\photo264280621058206191.jpg" />
     <Content Include="Images\photo264280621058206192.jpg" />
+    <Content Include="Images\quality.png" />
+    <Content Include="Images\감정사전.png" />
+    <Content Include="Images\논문.png" />
+    <Content Include="Images\형태소분서기.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="conf\plugin\MajorPlugin\MorphAnalyzer\ChartMorphAnalyzer.json">
@@ -281,6 +292,7 @@
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\FeedbackSearch\index.js" />
+    <Content Include="Scripts\Feedback\newux.js" />
     <Content Include="Scripts\Feedback\index.js" />
     <Content Include="Scripts\Feedback\realFeedbackSearch.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -332,6 +344,8 @@
     <Content Include="Views\Feedback\RealFeedbackAnalyze.cshtml" />
     <Content Include="Views\FeedbackSearch\Index.cshtml" />
     <Content Include="Views\Feedback\RealFeedbackAnalyzeStep2.cshtml" />
+    <Content Include="Views\Feedback\NewFeedbackUX.cshtml" />
+    <Content Include="Views\FeedbackSearch\Introduce.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
