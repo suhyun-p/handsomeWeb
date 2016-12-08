@@ -10,6 +10,7 @@ namespace HandsomeWeb.Controllers
     {
         public ActionResult Index()
         {
+			Response.Redirect("/FeedbackSearch");
             return View();
         }
 

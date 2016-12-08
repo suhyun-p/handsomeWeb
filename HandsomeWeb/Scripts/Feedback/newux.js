@@ -24,7 +24,7 @@ realFeedbackAnalyze.init = function(){
 			success: function (data) {
 				$('#myTable > tbody:last').html('');
 				$.each(data, function (key, value) {
-					$('#myTable > tbody:last').append('<tr><td width=20px>' + value.OrderNo + '</td><td width=100px><img src=\'' + value.ImageUrl.ImageUrl1 + '\' width=100px height=100px /> </td><td width=200px>' + value.Title + '</td><td>' + value.Contents + '</td></tr>')
+					$('#myTable > tbody:last').append('<tr><td width=20px>' + value.OrderNo + '</td><td width=100px><img src=\'' + value.ImageUrl.ImageUrl1 + '\' width=100px height=100px /> </td><td width=200px>' + value.Title + '</td><td>' + value.OriginHtmlContents + '</td></tr>')
 				});
 			},
 			error: function (result) {
@@ -49,7 +49,7 @@ realFeedbackAnalyze.init = function(){
 			success: function (data) {
 				$('#myTable > tbody:last').html('');
 				$.each(data, function (key, value) {
-					$('#myTable > tbody:last').append('<tr><td width=20px>' + value.OrderNo + '</td><td width=100px><img src=\'' + value.ImageUrl.ImageUrl1 + '\' width=100px height=100px /> </td><td width=200px>' + value.Title + '</td><td>' + value.Contents + '</td></tr>')
+					$('#myTable > tbody:last').append('<tr><td width=20px>' + value.OrderNo + '</td><td width=100px><img src=\'' + value.ImageUrl.ImageUrl1 + '\' width=100px height=100px /> </td><td width=200px>' + value.Title + '</td><td>' + value.OriginHtmlContents + '</td></tr>')
 				});
 			},
 			error: function (result) {
@@ -74,7 +74,7 @@ realFeedbackAnalyze.init = function(){
 			success: function (data) {
 				$('#myTable > tbody:last').html('');
 				$.each(data, function (key, value) {
-					$('#myTable > tbody:last').append('<tr><td width=20px>' + value.OrderNo + '</td><td width=100px><img src=\'' + value.ImageUrl.ImageUrl1 + '\' width=100px height=100px /> </td><td width=200px>' + value.Title + '</td><td>' + value.Contents + '</td></tr>')
+					$('#myTable > tbody:last').append('<tr><td width=20px>' + value.OrderNo + '</td><td width=100px><img src=\'' + value.ImageUrl.ImageUrl1 + '\' width=100px height=100px /> </td><td width=200px>' + value.Title + '</td><td>' + value.OriginHtmlContents + '</td></tr>')
 				});
 			},
 			error: function (result) {
@@ -99,7 +99,7 @@ realFeedbackAnalyze.init = function(){
 			success: function (data) {
 				$('#myTable > tbody:last').html('');
 				$.each(data, function (key, value) {
-					$('#myTable > tbody:last').append('<tr><td width=20px>' + value.OrderNo + '</td><td width=100px><img src=\'' + value.ImageUrl.ImageUrl1 + '\' width=100px height=100px /> </td><td width=200px>' + value.Title + '</td><td>' + value.Contents + '</td></tr>')
+					$('#myTable > tbody:last').append('<tr><td width=20px>' + value.OrderNo + '</td><td width=100px><img src=\'' + value.ImageUrl.ImageUrl1 + '\' width=100px height=100px /> </td><td width=200px>' + value.Title + '</td><td>' + value.OriginHtmlContents + '</td></tr>')
 				});
 			},
 			error: function (result) {

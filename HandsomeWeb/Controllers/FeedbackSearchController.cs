@@ -162,7 +162,7 @@ namespace HandsomeWeb.Controllers
 				var collection = GetFeedbacksCollection();
 
 
-				return collection.Find<FeedbackModel>(p => p.QualityScore == 5 && p.SensitiveScore > 3).ToList<FeedbackModel>();
+				return collection.Find<FeedbackModel>(p => p.QualityScore == 5 && p.SensitiveScore > 4).ToList<FeedbackModel>();
 			}
 			catch (MongoConnectionException)
 			{
@@ -177,7 +177,7 @@ namespace HandsomeWeb.Controllers
 				var collection = GetFeedbacksCollection();
 
 
-				return collection.Find<FeedbackModel>(p => p.QualityScore == 5 && p.SensitiveScore < -3).ToList<FeedbackModel>();
+				return collection.Find<FeedbackModel>(p => p.QualityScore == 5 && p.SensitiveScore < -4).ToList<FeedbackModel>();
 			}
 			catch (MongoConnectionException)
 			{
