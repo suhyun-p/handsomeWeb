@@ -22,7 +22,7 @@ namespace Feedback.ContentsFeeder.AzureWebservice
 
 	public class AzureMLWsHelper
 	{
-		public static async Task InvokeRequestResponseService()
+		public static async Task<string> InvokeRequestResponseService(StringTable req)
 		{
 			using (var client = new HttpClient())
 			{
@@ -31,11 +31,7 @@ namespace Feedback.ContentsFeeder.AzureWebservice
 					Inputs = new Dictionary<string, StringTable>() { 
                         { 
                             "input1", 
-                            new StringTable() 
-                            {
-                                ColumnNames = new string[] {"SiteId", "InputChannel", "ImageCount", "CountNPM", "RateOfValid", "QualityScore"},
-                                Values = new string[,] {  { "1", "1", "0", "10", "75", "0" },  { "2", "2", "1", "9", "80", "0" },  }
-                            }
+                            req
                         },
                     },
 					GlobalParameters = new Dictionary<string, string>() {
@@ -56,11 +52,16 @@ namespace Feedback.ContentsFeeder.AzureWebservice
 				//      result = await DoSomeTask().ConfigureAwait(false)
 
 
-				HttpResponseMessage response = await client.PostAsJsonAsync("", scoreRequest);
+				//HttpResponseMessage response = await client.PostAsJsonAsync("", scoreRequest);
+
+				HttpResponseMessage response = await client.PostAsJsonAsync("", scoreRequest).ConfigureAwait(false);
+				string result = String.Empty;
 
 				if (response.IsSuccessStatusCode)
 				{
-					string result = await response.Content.ReadAsStringAsync();
+					result = await response.Content.ReadAsStringAsync();
+
+
 					Console.WriteLine("Result: {0}", result);
 				}
 				else
@@ -73,6 +74,7 @@ namespace Feedback.ContentsFeeder.AzureWebservice
 					string responseContent = await response.Content.ReadAsStringAsync();
 					Console.WriteLine(responseContent);
 				}
+				return result;
 			}
 		}
 	}

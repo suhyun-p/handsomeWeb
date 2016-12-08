@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Feedback.ContentsFeeder.Converter;
 using Feedback.ContentsFeeder.BizDac;
+using Feedback.ContentsFeeder.AzureWebservice;
+using System.Web.Script.Serialization;
 
 namespace Feedback.ContentsFeeder
 {
@@ -100,10 +102,12 @@ namespace Feedback.ContentsFeeder
 
 			UniqueWordTokenCollection = MakeUniqueWordTokenList();
 
-			this.FbQuality = EvaluateQuality();
+			//this.FbQuality = EvaluateQualityByAzure();
 
+			EvaluateQualityByAzure();
 
-
+			//Thread worker = new Thread(EvaluateQualityByAzure);
+			//worker.Start();
 		}
 
 		private List<WordTokenT> MakeUniqueWordTokenList()
@@ -512,9 +516,9 @@ namespace Feedback.ContentsFeeder
 
 			if (TotalCntNPM > 10 && RateOfValid <= 70) currQuality = FeedbackQuality.BelowAverage;
 
-			if (TotalCntNPM > 10 && RateOfValid > 70 && ImageCount == 0) currQuality = FeedbackQuality.BelowAverage;
+			if (TotalCntNPM > 15 && RateOfValid > 70 && ImageCount == 0) currQuality = FeedbackQuality.Average;
 
-			if (TotalCntNPM > 10 && RateOfValid > 70 && ImageCount > 0) currQuality = FeedbackQuality.Average;
+			if (TotalCntNPM > 15 && RateOfValid > 70 && ImageCount > 0) currQuality = FeedbackQuality.Good;
 
 			if (TotalCntNPM > 25 && RateOfValid <= 70 && ImageCount == 0) currQuality = FeedbackQuality.Average;
 
@@ -535,6 +539,42 @@ namespace Feedback.ContentsFeeder
 			return currQuality;
 		}
 		#endregion
+
+		/// <summary>
+		/// Azure ML Ws를 호출하여 상품평의 품질을 측정한다.
+		/// </summary>
+		/// <returns></returns>
+		public void  EvaluateQualityByAzure()
+		{
+			FeedbackQuality currQuality = FeedbackQuality.NotSet;
+			string siteid = this.FeedbackSite == FbSite.Auction ? "1" : "2";
+			string inputchannel = this.InputChannel == FbInputChannel.PC ? "1" : "2";
+			string rateofValid = Convert.ToInt64(this.RateOfValid).ToString();
+			
+			StringTable req = new StringTable()
+							{
+								ColumnNames = new string[] { "SiteId", "InputChannel", "ImageCount", "CountNPM", "RateOfValid", "QualityScore" },
+								Values = new string[,] { { siteid, inputchannel, this.ImageCount.ToString(), this.TotalCntNPM.ToString(), rateofValid, "0" } }
+							};
+
+			string evaluationStr = String.Empty;
+
+			Task<string> result = AzureMLWsHelper.InvokeRequestResponseService(req);
+
+			evaluationStr = result.Result;
+
+			dynamic json = new JavaScriptSerializer().DeserializeObject(evaluationStr);
+
+			try
+			{
+				object[] values = json["Results"]["output1"]["value"]["Values"][0];
+				FeedbackQuality mlQuality = (FeedbackQuality)Convert.ToInt32(values[12]);
+				this.FbQuality = mlQuality;
+			}
+			catch
+			{
+			}
+		}
 	}
 
 	/// <summary>

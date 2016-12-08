@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="~/Scripts/FeedbackSearch/index.js"></script>
+
+</head>
+<body>
+    <div class="jumbotron">
+		<center><h1>상품평을 보면 전체적으로 그런 기운이 온다</h1></center>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav nav-tabs" id="myTabs">
+						<li class="active"><a href="#home" data-toggle="tab">Home</a>
+						</li>
+						<li><a href="#iacfeedback" data-toggle="tab">옥션 상품평</a>
+						</li>
+						<li><a href="#gmtkfeddback" data-toggle="tab">지마켓 상품평</a>
+						</li>
+						<li><a href="#realfeedbackanalyze" data-toggle="tab">실시간분석</a>
+						</li>
+						<li><a href="#newux" data-toggle="tab">새로운제안</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+
+						<div class="tab-pane active" id="home">
+							<h2>9조 완전미남이조 (박수현, 전효택)</h2>
+							<img src="~/Images/photo264280621058206191.jpg" height="312px" width="416px"/>
+							<img src="~/Images/photo264280621058206192.jpg" height="312px" width="416px"/>
+							<h2>공정하고 편파적인 심사 부탁드립니다.</h2>
+							<br />
+						</div>
+
+						<div class="tab-pane" id="iacfeedback" data-src="http://member.auction.co.kr/Feedback/VIPFeedbackSecondList.aspx?sellerid=n760527&itemno=A585443471">
+							<iframe src="" width="1024" height="700" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
+						</div>
+
+						<div class="tab-pane" id="gmtkfeddback" data-src="http://mitem.gmarket.co.kr/Review/PhotoReview?page_no=1&goodscode=214762051">
+							<iframe src="" width="700" height="1024" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
+						</div>
+
+						<div class="tab-pane" id="realfeedbackanalyze" data-src="/Feedback/RealFeedbackAnalyze">
+							<iframe src="" width="1280" height="900" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
+						</div>
+
+						<div class="tab-pane" id="newux" data-src="/Feedback/NewFeedbackUX">
+							<iframe src="" width="1280" height="900" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+        <textarea id="targetFeedback" class="form-control" rows="3"></textarea>
+        <p><a id="FeedbackGo" class="btn btn-primary btn-lg" href="#" role="button">I got you!!!</a></p>
+        <p><a id="MongoTest" class="btn btn-primary btn-lg" href="#" role="button">MongoTest</a></p>
+
+        <table class="table" id="myTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Title</th>
+                    <th>Contents</th>
+                </tr>
+            </thead>
+            <tbody>                
+            </tbody">
+        </table>
+    </div>
+</body>
+</html>

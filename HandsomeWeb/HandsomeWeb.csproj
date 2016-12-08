@@ -185,6 +185,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\FeedbackSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -235,6 +236,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\photo264280621058206191.jpg" />
+    <Content Include="Images\photo264280621058206192.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="conf\plugin\MajorPlugin\MorphAnalyzer\ChartMorphAnalyzer.json">
@@ -277,6 +280,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\FeedbackSearch\index.js" />
     <Content Include="Scripts\Feedback\index.js" />
     <Content Include="Scripts\Feedback\realFeedbackSearch.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -326,10 +330,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Feedback\RealFeedbackAnalyze.cshtml" />
+    <Content Include="Views\FeedbackSearch\Index.cshtml" />
     <Content Include="Views\Feedback\RealFeedbackAnalyzeStep2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

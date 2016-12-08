@@ -105,20 +105,18 @@ namespace HandsomeWeb.Controllers
 
             FeedbackDocument test = new FeedbackDocument(FbSite.Auction, String.Empty, 0, String.Empty, String.Empty, model.Result.model.PRvwTxt, FbInputChannel.PC, DateTime.Now);
 
-            string sensitive = "긍정도 부정도 아닌";
+            string sensitive = "";
 
             if (test.SensitiveScore > 0)
             {
-                sensitive = "긍정적인 평가의";
+                sensitive = "긍정적인 내용의 상품평";
             }
             else if (test.SensitiveScore < 0)
             {
-                sensitive = "부정적인 평가의 ";
+				sensitive = "부정적인 내용의 상품평";
             }
-
-
-
-            RealFeedbackSearchModel data = new RealFeedbackSearchModel();
+            
+			RealFeedbackSearchModel data = new RealFeedbackSearchModel();
             data.Title = model.Result.model.PRvwNm;
             data.Contents = model.Result.model.PRvwTxt;
             data.ImageUrl = model.Result.model.PhtUrl;
@@ -127,11 +125,40 @@ namespace HandsomeWeb.Controllers
             data.FbQuality = test.FbQuality;
             data.Sensitive = sensitive;
             data.SensitiveScore = test.SensitiveScore;
+			data.PositiveScore = test.PositiveScore;
+			data.NgativeScore = test.NgativeScore;
             data.AnalysisedText = test.AnalysisedText;
-            data.PositiveScore = test.PositiveScore;
-            data.NgativeScore = test.NgativeScore;
 
-            data.FbQuality = test.FbQuality;
+			switch (test.FbQuality)
+			{
+				case FeedbackQuality.Junk:
+					data.FbMsg = "<h1>정크 상품평입니다 (0점)<h1/>";
+					data.PositiveScore = 0;
+					data.NgativeScore = 0;
+					data.SensitiveScore = 0;
+					data.Sensitive = String.Empty;
+					break;
+
+				case FeedbackQuality.BelowAverage:
+					data.FbMsg = "<h1>품질은 평균이하입니다 (1점)<h1/>";
+					break;
+
+				case FeedbackQuality.Average:
+					data.FbMsg = "<h1>품질은 보통입니다 (2점)<h1/>";
+					break;
+
+				case FeedbackQuality.Good:
+					data.FbMsg = "<h1>품질은 좋은 상품평입니다 (3점)<h1/>";
+					break;
+
+				case FeedbackQuality.Excellent:
+					data.FbMsg = "<h1>품질이 훌륭합니다 (4점)<h1/>";
+					break;
+
+				case FeedbackQuality.MostExcellent:
+					data.FbMsg = "<h1/>품질이 대단히 매우 훌륭합니다. 사랑합니다. 고객님 (5점)<h1/>";
+					break;
+			}
 
             return Json(data, JsonRequestBehavior.AllowGet);
             // return RedirectToAction("RealFeedbackAnalyzeStep2", "Feedback");
@@ -140,28 +167,15 @@ namespace HandsomeWeb.Controllers
         [ValidateInput(false)]
 		public JsonResult FeedbackParsing(string Name1)
 		{
-			FeedbackDocument test = new FeedbackDocument(FbSite.Auction, String.Empty, 0,  String.Empty, String.Empty, Name1, FbInputChannel.PC, DateTime.Now);
+			FeedbackDocument test = new FeedbackDocument(FbSite.Gmarket, String.Empty, 0,  String.Empty, String.Empty, Name1, FbInputChannel.PC, DateTime.Now);
 
-			string sensitive = "긍정도 부정도 아닌";
-
-			if (test.SensitiveScore > 0)
-			{
-				sensitive = "긍정적인 평가의";
-			}
-			else if (test.SensitiveScore < 0)
-			{
-				sensitive = "부정적인 평가의 ";
-			}
-
-
-
-			return Json(String.Format("당신의 점수는 {0}점입니다.\n당신의 글은 {1} 상품평입니다. \n상품평의 감성점수는 {2}점 입니다. {3} {4} {5}", test.FbQuality, sensitive, test.SensitiveScore, test.AnalysisedText, test.PositiveScore, test.NgativeScore), JsonRequestBehavior.AllowGet);
+			return Json(String.Format("당신의 점수는 {0}점입니다.\n\n{1}", test.FbQuality, test.AnalysisedText), JsonRequestBehavior.AllowGet);
 		}
 
         [ValidateInput(false)]
         public JsonResult FeedbackParsingData(string Name1)
         {
-            FeedbackDocument test = new FeedbackDocument(FbSite.Auction, String.Empty, 0, String.Empty, String.Empty, Name1, FbInputChannel.PC, DateTime.Now);
+			FeedbackDocument test = new FeedbackDocument(FbSite.Gmarket, String.Empty, 0, String.Empty, String.Empty, Name1, FbInputChannel.PC, DateTime.Now);
 
             string sensitive = "긍정도 부정도 아닌";
 

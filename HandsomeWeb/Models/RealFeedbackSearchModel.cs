@@ -13,6 +13,7 @@ namespace HandsomeWeb.Models
         public string ImageUrl { get; set; }
 
         public FeedbackQuality FbQuality { get; set; }
+		public string FbMsg { get; set; }
         public string Sensitive { get; set; }
         public double SensitiveScore { get; set; }
         public string AnalysisedText { get; set; }
